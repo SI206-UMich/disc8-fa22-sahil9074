@@ -23,11 +23,12 @@ def getLink(soup):
 
 # Task 3: Get the details from the box titled "College/school founding". Get all the college/school names and the year they were
 # founded and organize the same into key-value pairs.
+admissions = {}
 def getAdmissionsInfo2019(soup):
-    admissions = {}
-
-    # tag_object.attrs = 
-    pass
+    for row in soup.find_all('div', class_='toccolours'):
+        key, val = row.find('td')
+        admissions[key] = val
+    return admissions
 
 
 
@@ -50,23 +51,23 @@ class TestAllMethods(unittest.TestCase):
     def test_link_nobel_laureates(self):
         self.assertEqual(getLink(self.soup), 'https://en.wikipedia.org/wiki/List_of_American_universities_with_Olympic_medals')
 
-    # def test_admissions_info(self):
-    #     self.assertEqual(getAdmissionsInfo2019(self.soup), {'Engineering': '1854', 
-    #                                                         'Law': '1859',
-    #                                                         'Dentistry': '1875', 
-    #                                                         'Pharmacy': '1876', 
-    #                                                         'Music, Theatre &Dance': '1880', 
-    #                                                         'Nursing': '1893', 
-    #                                                         'Architecture &Urban Planning': '1906', 
-    #                                                         'Graduate Studies': '1912', 
-    #                                                         'Government': '1914', 'Education': 
-    #                                                         '1921', 'Business': '1924', 
-    #                                                         'Environment andSustainability': '1927', 
-    #                                                         'Public Health': '1941', 
-    #                                                         'Social Work': '1951', 
-    #                                                         'Information': '1969', 
-    #                                                         'Art & Design': '1974', 
-    #                                                         'Kinesiology': '1984'})
+    def test_admissions_info(self):
+        self.assertEqual(getAdmissionsInfo2019(self.soup), {'Engineering': '1854', 
+                                                            'Law': '1859',
+                                                            'Dentistry': '1875', 
+                                                            'Pharmacy': '1876', 
+                                                            'Music, Theatre &Dance': '1880', 
+                                                            'Nursing': '1893', 
+                                                            'Architecture &Urban Planning': '1906', 
+                                                            'Graduate Studies': '1912', 
+                                                            'Government': '1914', 'Education': 
+                                                            '1921', 'Business': '1924', 
+                                                            'Environment andSustainability': '1927', 
+                                                            'Public Health': '1941', 
+                                                            'Social Work': '1951', 
+                                                            'Information': '1969', 
+                                                            'Art & Design': '1974', 
+                                                            'Kinesiology': '1984'})
 
 if __name__ == "__main__":
     main()
